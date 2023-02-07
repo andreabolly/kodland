@@ -1,4 +1,5 @@
 #pgzero
+#agg 1
 
 WIDTH = 600
 HEIGHT = 400
@@ -14,6 +15,8 @@ background = Actor("background")
 bonus1 = Actor("bonus", (450, 100))
 bonus2 = Actor("bonus", (450, 200))
 play = Actor("play", (300, 100))
+shop = Actor("shop", (300, 200))
+col = Actor("collection", (300, 300))
 
 # Variabili
 count = 0
@@ -76,6 +79,8 @@ def disegna_menu():
     background.draw()
     screen.draw.text(count, topleft=(30, 30), color="white", fontsize=45)
     play.draw()
+    shop.draw()
+    col.draw()
 
 
 # FUNZIONI DI PYGAMEZERO
@@ -94,3 +99,9 @@ def on_mouse_down(button, pos):
         mouse_game(button, pos)
     elif mode == "menu":
         mouse_menu(button, pos)
+        
+        
+        
+        
+        
+        
