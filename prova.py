@@ -1,5 +1,5 @@
 #pgzero
-#agg 2
+#agg 3
 
 WIDTH = 600
 HEIGHT = 400
@@ -19,7 +19,7 @@ shop = Actor("shop", (300, 200))
 col = Actor("collection", (300, 300))
 crocodile = Actor("crocodile", (100, 200))
 hippo = Actor("hippo", (300, 200))
-
+x = Actor("cross", (560, 30))
 
 # Variabili
 count = 0
@@ -48,7 +48,7 @@ def disegna_game():
     bonus2.draw()
     screen.draw.text("+10 ogni 5s", center=(450, 180), color="black", fontsize=17)
     screen.draw.text("prezzo: 15", center=(450, 200), color="black", fontsize=17)
-
+    x.draw()
 
 def mouse_game(button, pos):
     global count
@@ -68,6 +68,16 @@ def mouse_game(button, pos):
             if count >= 15:
                 count = count - 15
                 schedule_interval(bonus_2, 5)
+        elif x.collidepoint(pos):
+            mode = "menu"
+            
+
+def mouse_shop(button, pos):
+    global count
+    global mode
+    if button == mouse.LEFT:
+        if x.collidepoint(pos):
+            mode = "menu"
 
 
 def mouse_menu(button, pos):
@@ -99,7 +109,8 @@ def disegna_shop():
     
     hippo.draw()
     screen.draw.text("2500 €", topleft=(250, 300), color="white", fontsize=35)
-
+    
+    x.draw()
 
 # FUNZIONI DI PYGAMEZERO
 def draw():
@@ -119,7 +130,8 @@ def on_mouse_down(button, pos):
         mouse_game(button, pos)
     elif mode == "menu":
         mouse_menu(button, pos)
-        
+    elif mode == "shop":
+        mouse_shop(button, pos)
         
         
         
