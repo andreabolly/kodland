@@ -1,5 +1,5 @@
 #pgzero
-#agg 3
+#nuovo 1
 
 WIDTH = 600
 HEIGHT = 400
@@ -20,6 +20,9 @@ col = Actor("collection", (300, 300))
 crocodile = Actor("crocodile", (100, 200))
 hippo = Actor("hippo", (300, 200))
 x = Actor("cross", (560, 30))
+
+negozio = ["crocodile", "hippo"] 
+collezione = []
 
 # Variabili
 count = 0
@@ -75,9 +78,22 @@ def mouse_game(button, pos):
 def mouse_shop(button, pos):
     global count
     global mode
+    global negozio, collezione
     if button == mouse.LEFT:
         if x.collidepoint(pos):
             mode = "menu"
+        elif crocodile.collidepoint(pos):
+            if count >= 50:
+                count -= 50
+                #hai almeno 50 punti puoi comprare il coccodrillo
+                negozio.remove("crocodile")
+                collezione.append("crocodile")
+        elif hippo.collidepoint(pos):
+            if count >= 75:
+                count -= 75
+                #hai almeno 50 punti puoi comprare il coccodrillo
+                negozio.remove("hippo")
+                collezione.append("hippo")
 
 
 def mouse_menu(button, pos):
@@ -100,15 +116,18 @@ def disegna_menu():
 
 def disegna_shop():
     global count
+    global negozio, collezione
     
     background.draw()
     screen.draw.text(count, topleft=(30, 30), color="white", fontsize=45)
     
-    crocodile.draw()
-    screen.draw.text("500 €", topleft=(70, 300), color="white", fontsize=35)
+    if "crocodile" in negozio:
+        crocodile.draw()
+        screen.draw.text("500 €", topleft=(70, 300), color="white", fontsize=35)
     
-    hippo.draw()
-    screen.draw.text("2500 €", topleft=(250, 300), color="white", fontsize=35)
+    if "hippo" in negozio:
+        hippo.draw()
+        screen.draw.text("2500 €", topleft=(250, 300), color="white", fontsize=35)
     
     x.draw()
 
