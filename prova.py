@@ -1,5 +1,5 @@
 #pgzero
-#nuovo 1
+#FINE
 
 WIDTH = 600
 HEIGHT = 400
@@ -19,7 +19,9 @@ shop = Actor("shop", (300, 200))
 col = Actor("collection", (300, 300))
 crocodile = Actor("crocodile", (100, 200))
 hippo = Actor("hippo", (300, 200))
+giraffa = Actor("giraffe", (500, 200))
 x = Actor("cross", (560, 30))
+
 
 negozio = ["crocodile", "hippo"] 
 collezione = []
@@ -103,6 +105,8 @@ def mouse_menu(button, pos):
             mode = "game"
         elif shop.collidepoint(pos):
             mode = "shop"
+        elif col.collidepoint(pos):
+            mode = "col"
 
 
 def disegna_menu():
@@ -123,14 +127,48 @@ def disegna_shop():
     
     if "crocodile" in negozio:
         crocodile.draw()
-        screen.draw.text("500 €", topleft=(70, 300), color="white", fontsize=35)
+        screen.draw.text("50 €", topleft=(70, 300), color="white", fontsize=35)
     
     if "hippo" in negozio:
         hippo.draw()
-        screen.draw.text("2500 €", topleft=(250, 300), color="white", fontsize=35)
+        screen.draw.text("75 €", topleft=(250, 300), color="white", fontsize=35)
     
     x.draw()
 
+
+def disegna_col():
+    global count
+    global negozio, collezione
+    
+    background.draw()
+    screen.draw.text(count, topleft=(30, 30), color="white", fontsize=45)
+    
+    giraffa.draw()
+    
+    if "crocodile" in collezione:
+        crocodile.draw()
+        
+    
+    if "hippo" in collezione:
+        hippo.draw()
+    
+    x.draw()
+
+
+def mouse_col(button, pos):
+    global count
+    global mode
+    global negozio, collezione
+    if button == mouse.LEFT:
+        if x.collidepoint(pos):
+            mode = "menu"
+        elif crocodile.collidepoint(pos):
+            animal.image = crocodile.image
+        elif hippo.collidepoint(pos):
+            animal.image = hippo.image
+        elif giraffa.collidepoint(pos):
+            animal.image = giraffa.image
+    
 # FUNZIONI DI PYGAMEZERO
 def draw():
     global mode
@@ -140,7 +178,8 @@ def draw():
         disegna_menu()
     elif mode == "shop":
         disegna_shop()
-
+    elif mode == "col":
+        disegna_col()
 
 def on_mouse_down(button, pos):
     global count
@@ -151,6 +190,8 @@ def on_mouse_down(button, pos):
         mouse_menu(button, pos)
     elif mode == "shop":
         mouse_shop(button, pos)
+    elif mode == "col":
+        mouse_col(button, pos)
         
         
         
